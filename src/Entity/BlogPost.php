@@ -30,17 +30,18 @@ class BlogPost
     /**
      * @ORM\Column(type="text")
      */
-    private $content;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $author;
+    private $content;    
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $slug;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="posts")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $author;
 
     public function getId(): ?int
     {
@@ -81,19 +82,7 @@ class BlogPost
         $this->content = $content;
 
         return $this;
-    }
-
-    public function getAuthor(): ?string
-    {
-        return $this->author;
-    }
-
-    public function setAuthor(string $author): self
-    {
-        $this->author = $author;
-
-        return $this;
-    }
+    }    
 
     public function getSlug(): ?string
     {
@@ -103,6 +92,18 @@ class BlogPost
     public function setSlug(?string $slug): self
     {
         $this->slug = $slug;
+
+        return $this;
+    }
+
+    public function getAuthor(): ?User
+    {
+        return $this->author;
+    }
+
+    public function setAuthor(?User $author): self
+    {
+        $this->author = $author;
 
         return $this;
     }
