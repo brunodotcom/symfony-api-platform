@@ -5,6 +5,7 @@ namespace App\EventSubscriber;
 
 
 use ApiPlatform\Core\EventListener\EventPriorities;
+use App\Entity\AuthoredEntityInterface;
 use App\Entity\BlogPost;
 use App\Entity\Comment;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -41,8 +42,7 @@ class AuthoredEntitySubscriber implements EventSubscriberInterface
         $author = $this->tokenStorage->getToken()->getUser();
 
         if (
-            (!$entity instanceof BlogPost  && !$entity instanceof Comment) ||
-            !in_array($method, [Request::METHOD_POST, Request::METHOD_PUT])) {
+            !$entity instanceof AuthoredEntityInterface || !in_array($method, [Request::METHOD_POST, Request::METHOD_PUT])) {
             return ;
         }
 
