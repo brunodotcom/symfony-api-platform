@@ -21,13 +21,13 @@ use Symfony\Component\Validator\Constraints as Assert;
  *              }
  *           },
  *          "put" = {
- *              "access_control"="is_granted('IS_AUTHENTICATED_FULLY') and object.getAuthor() == user"
+ *              "access_control"="(is_granted('ROLE_WRITTER') and object.getAuthor() == user) or is_granted('ROLE_EDITOR')"
  *          }
  *     },
  *      collectionOperations={
  *          "get",
  *          "post" = {
- *              "access_control"="is_granted('IS_AUTHENTICATED_FULLY')"
+ *              "access_control"="is_granted('ROLE_WRITTER')"
  *          }
  *      },
  *     denormalizationContext={
