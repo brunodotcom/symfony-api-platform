@@ -106,7 +106,7 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"post", "put"})
+     * @Groups({"post", "put", "get-admin"})
      * @Assert\NotBlank()
      * @Assert\Email()
      * @Assert\Length(min=6, max=255)
@@ -128,7 +128,7 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="simple_array", length=200)
      */
-    private $roles = [];
+    private $roles;
 
     public function __construct()
     {
@@ -220,9 +220,9 @@ class User implements UserInterface
      *
      * @return (Role|string)[] The user roles
      */
-    public function getRoles()
+    public function getRoles(): array
     {
-        return ["ROLE_USER"];
+        return $this->roles;
     }
 
     /**
